@@ -1,0 +1,15 @@
+[package]
+name = "myos-filesystem"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+
+[features]
+host-tools = []
+
+[[bin]]
+name = "mkmyosfs"
+path = "src/bin/mkmyosfs.rs"
+required-features = ["host-tools"]

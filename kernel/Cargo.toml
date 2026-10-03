@@ -1,0 +1,13 @@
+[package]
+name = "myos-kernel"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+uefi = { version = "0.41.0", default-features = false, features = ["logger", "panic_handler"] }
+font8x8 = { version = "0.3", default-features = false, features = ["unicode"] }
+myos-gui-core = { path = "../gui-core" }
+myos-filesystem = { path = "../filesystem" }
+
+[build-dependencies]
+png = "0.17"

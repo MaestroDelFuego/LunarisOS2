@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MYOS Documentation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand-row">
+          <h1>MYOS</h1>
+          <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </div>
+
+        <div class="search-box-wrap">
+          <input id="searchInput" type="search" placeholder="Search docs..." aria-label="Search documentation" />
+          <div id="searchResults" class="search-results hidden"></div>
+        </div>
+
+        <nav class="nav">
+          <div class="nav-group">
+            <button class="nav-header" data-target="overview-group">Overview</button>
+            <div id="overview-group" class="nav-items open">
+              <a href="#getting-started">Getting Started</a>
+              <a href="#project-goals">Project Goals</a>
+              <a href="#roadmap">Roadmap</a>
+            </div>
+          </div>
+
+          <div class="nav-group">
+            <button class="nav-header" data-target="architecture-group">Architecture</button>
+            <div id="architecture-group" class="nav-items open">
+              <a href="#system-overview">System Overview</a>
+              <a href="#boot-process">Boot Process</a>
+              <a href="#kernel">Kernel</a>
+              <a href="#memory">Memory</a>
+              <a href="#filesystem">Filesystem</a>
+            </div>
+          </div>
+
+          <div class="nav-group">
+            <button class="nav-header" data-target="gui-group">GUI</button>
+            <div id="gui-group" class="nav-items open">
+              <a href="#graphics">Graphics</a>
+              <a href="#window-manager">Window Manager</a>
+              <a href="#desktop">Desktop</a>
+              <a href="#taskbar">Taskbar</a>
+              <a href="#start-menu">Start Menu</a>
+            </div>
+          </div>
+
+          <div class="nav-group">
+            <button class="nav-header" data-target="apps-group">Applications</button>
+            <div id="apps-group" class="nav-items open">
+              <a href="#notepad">Notepad</a>
+              <a href="#explorer">Explorer</a>
+              <a href="#calculator">Calculator</a>
+              <a href="#terminal">Terminal</a>
+              <a href="#settings">Settings</a>
+            </div>
+          </div>
+
+          <div class="nav-group">
+            <button class="nav-header" data-target="dev-group">Development</button>
+            <div id="dev-group" class="nav-items open">
+              <a href="#building">Building</a>
+              <a href="#qemu">QEMU</a>
+              <a href="#debugging">Debugging</a>
+              <a href="#testing">Testing</a>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Documentation</p>
+            <h2>MYOS Developer Guide</h2>
+          </div>
+          <button id="mobileMenuButton" class="mobile-menu-button">☰</button>
+        </header>
+
+        <article>
+          <section id="getting-started" class="doc-section">
+            <h3>Getting Started</h3>
+            <div class="status-badge">🟡 In Development</div>
+            <p>
+              MYOS is being built incrementally with a strong emphasis on a stable x86-64 UEFI foundation before more ambitious desktop features are added.
+            </p>
+            <p>
+              The kernel now renders the canvas.png wallpaper and has a first reusable GUI layer. The current GUI demonstration is one pointer-driven test button, not a complete desktop.
+            </p>
+          </section>
+
+          <section id="project-goals" class="doc-section">
+            <h3>Project Goals</h3>
+            <ul>
+              <li>Boot on standard x86-64 hardware and QEMU.</li>
+              <li>Provide a graphical desktop inspired by classic Windows XP.</li>
+              <li>Support persistent storage and built-in applications.</li>
+              <li>Keep the architecture modular and testable.</li>
+            </ul>
+          </section>
+
+          <section id="roadmap" class="doc-section">
+            <h3>Roadmap</h3>
+            <div class="roadmap">
+              <div class="roadmap-item done">Boot foundation</div>
+              <div class="roadmap-item done">Framebuffer graphics and wallpaper</div>
+              <div class="roadmap-item active">UEFI keyboard and mouse input</div>
+              <div class="roadmap-item active">GUI framework</div>
+              <div class="roadmap-item active">Window manager</div>
+              <div class="roadmap-item active">Desktop wallpaper and Window Demo launcher</div>
+              <div class="roadmap-item active">Taskbar and Start menu</div>
+              <div class="roadmap-item active">Filesystem core</div>
+              <div class="roadmap-item pending">Notepad / Explorer / Calculator</div>
+            </div>
+          </section>
+
+          <section id="system-overview" class="doc-section">
+            <h3>System Overview</h3>
+            <p>
+              The current architecture separates the boot flow from later kernel and GUI subsystems. This keeps the first milestone stable while allowing additional layers to be introduced in order.
+            </p>
+            <pre><code>UEFI firmware
+  ↓
+Kernel entry point
+  ↓
+              GOP wallpaper renderer, desktop launcher, and window manager
+  ↓
+Future GUI, filesystems, and apps</code></pre>
+          </section>
+
+          <section id="boot-process" class="doc-section">
+            <h3>Boot Process</h3>
+            <p>
+              The boot flow begins in UEFI, where the kernel is loaded and executed as an EFI application. The initial milestone prints diagnostics, prepares a framebuffer target, and halts safely if an unrecoverable error occurs.
+            </p>
+          </section>
+
+          <section id="kernel" class="doc-section">
+            <h3>Kernel</h3>
+            <div class="status-badge">🟡 In Development</div>
+            <p>
+              The kernel remains intentionally minimal at this stage. It locates the UEFI boot environment, outputs state information, and exposes the foundation needed for later memory management and scheduling work.
+            </p>
+          </section>
+
+          <section id="memory" class="doc-section">
+            <h3>Memory</h3>
+            <div class="status-badge">🟡 Planned</div>
+            <p>
+              Memory detection and management will move from placeholder data to real UEFI memory map scanning once the initial boot environment is proven stable.
+            </p>
+          </section>
+
+          <section id="filesystem" class="doc-section">
+            <h3>Filesystem</h3>
+            <div class="status-badge">🟡 In Development</div>
+            <p>
+              The no_std myos-filesystem crate implements format/mount and file list, read, write, overwrite, and delete operations over 512-byte blocks. Its initial format is a small MyOS-specific fixed-directory filesystem with contiguous file extents.
+            </p>
+            <p>
+              Host tests use an in-memory block device and verify data survives unmount/remount. The kernel does not yet have a block-device driver, so this filesystem is not yet attached to persistent QEMU or physical storage.
+            </p>
+            <p>Source: filesystem/src/lib.rs</p>
+          </section>
+
+          <section id="graphics" class="doc-section">
+            <h3>Graphics</h3>
+            <div class="status-badge">🟡 Planned</div>
+            <p>
+              The GOP framebuffer selects a supported display mode and renders the root canvas.png wallpaper with aspect-preserving cropping. A separate GOP painter draws clipped rectangles, bitmap text, and buttons. QEMU visual verification is still pending.
+            </p>
+          </section>
+
+          <section id="gui-framework" class="doc-section">
+            <h3>GUI Framework</h3>
+            <div class="status-badge">🟡 In Development</div>
+            <p>
+              The no_std myos-gui-core crate contains reusable geometry, button state, and a fixed-capacity window manager. The kernel paints overlapping windows and supports keyboard focus, movement, maximize/restore, close, and test-window creation.
+            </p>
+            <p>
+              QEMU verified Start-menu open, Window Demo launch, and Escape close using the keyboard. The taskbar includes a runtime clock and open-window buttons. Mouse delivery is unavailable with the tested firmware setup; native mouse drivers, resize handles, more menu entries, and applications remain unimplemented.
+            </p>
+            <p>Sources: gui-core/src/lib.rs, kernel/src/gui.rs</p>
+          </section>
+
+          <section id="window-manager" class="doc-section">
+            <h3>Window Manager</h3>
+            <div class="status-badge">🟡 In Development</div>
+            <p>
+              The current window manager stores a fixed number of windows, tracks focus and z-order, and supports minimize, maximize, restore, close, and title-bar dragging. QEMU keyboard testing verified movement, focus cycling, button activation, maximize/restore, close, and reopen. Mouse delivery is not available with the tested firmware setup.
+            </p>
+          </section>
+
+          <section id="desktop" class="doc-section">
+            <h3>Desktop</h3>
+            <div class="status-badge">🟡 In Development</div>
+            <p>
+              The current desktop displays the canvas.png wallpaper and a working Window Demo shortcut. Enter or Space launches the window-manager demo. A desktop icon grid, context menu, taskbar, Start menu, system tray, and real applications remain future work.
+            </p>
+          </section>
+
+          <section id="taskbar" class="doc-section">
+            <h3>Taskbar</h3>
+            <div class="status-badge">🟡 In Development</div>
+            <p>
+              The taskbar currently renders a Start control, buttons for open windows, and a clock read from UEFI runtime time. Window buttons and pointer activation are wired, but pointer delivery is not available in the tested QEMU firmware setup.
+            </p>
+          </section>
+
+          <section id="start-menu" class="doc-section">
+            <h3>Start Menu</h3>
+            <div class="status-badge">🟡 In Development</div>
+            <p>
+              Press F2 to open the Start menu. Its only entry is Window Demo, which opens the working window-manager demo. Arrow keys select entries, Enter or Space activates the selection, and Escape closes the menu. No nonfunctional application or shutdown entries are shown.
+            </p>
+          </section>
+
+          <section id="notepad" class="doc-section">
+            <h3>Notepad</h3>
+            <div class="status-badge">🔴 Planned</div>
+            <p>
+              Notepad will become the first major user-facing application. It will provide text editing, file open/save flow, and persistent document support through the filesystem layer.
+            </p>
+          </section>
+
+          <section id="explorer" class="doc-section">
+            <h3>Explorer</h3>
+            <div class="status-badge">🔴 Planned</div>
+            <p>
+              The Explorer-like file manager will eventually provide navigation, folder and file operations, and opening files in the appropriate application.
+            </p>
+          </section>
+
+          <section id="calculator" class="doc-section">
+            <h3>Calculator</h3>
+            <div class="status-badge">🔴 Planned</div>
+            <p>
+              The calculator will support standard arithmetic operations and later increased capability as the GUI framework matures.
+            </p>
+          </section>
+
+          <section id="terminal" class="doc-section">
+            <h3>Terminal</h3>
+            <div class="status-badge">🔴 Planned</div>
+            <p>
+              The terminal will provide a small CLI surface for filesystem and system commands to support development and administration.
+            </p>
+          </section>
+
+          <section id="settings" class="doc-section">
+            <h3>Settings</h3>
+            <div class="status-badge">🔴 Planned</div>
+            <p>
+              Settings will expose only the options that are genuinely implemented, starting with display-related basics and system information.
+            </p>
+          </section>
+
+          <section id="building" class="doc-section">
+            <h3>Building</h3>
+            <p>
+              Build the workspace from the project root using the Rust toolchain and the x86_64-unknown-uefi target.
+            </p>
+            <pre><code>cargo build --workspace --target x86_64-unknown-uefi</code></pre>
+          </section>
+
+          <section id="qemu" class="doc-section">
+            <h3>QEMU</h3>
+            <p>
+              QEMU is the preferred environment for testing the kernel before any physical hardware attempt. OVMF is the standard virtual EFI firmware used for this path.
+            </p>
+          </section>
+
+          <section id="debugging" class="doc-section">
+            <h3>Debugging</h3>
+            <p>
+              Logging and diagnostics remain essential throughout the project. The early milestone prints to the UEFI console and keeps a serial-oriented abstraction in place for later hardware debugging.
+            </p>
+          </section>
+
+          <section id="testing" class="doc-section">
+            <h3>Testing</h3>
+            <p>
+              The initial milestone focuses on compileability and boot-path sanity. The next milestone will add graphics and input validation in QEMU.
+            </p>
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
